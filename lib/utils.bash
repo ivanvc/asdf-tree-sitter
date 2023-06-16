@@ -38,33 +38,33 @@ download_release() {
 	version="$1"
 	filename="$2"
 	case "$(uname -s)" in
-		Linux)
-			platform=linux
-			;;
-		Darwin)
-			local major minor
-			major=$(echo "$version" | cut -d. -f1)
-			minor=$(echo "$version" | cut -d. -f2)
-			if [ "$version" == "0.18.0" ] || [ "$major" == "0" ] && [ "$minor" -lt "18" ]; then
-				platform=osx
-			else
-				platform=macos
-			fi
-			;;
-		*)
-			fail "Platform not supported $(uname -s)"
-			;;
+	Linux)
+		platform=linux
+		;;
+	Darwin)
+		local major minor
+		major=$(echo "$version" | cut -d. -f1)
+		minor=$(echo "$version" | cut -d. -f2)
+		if [ "$version" == "0.18.0" ] || [ "$major" == "0" ] && [ "$minor" -lt "18" ]; then
+			platform=osx
+		else
+			platform=macos
+		fi
+		;;
+	*)
+		fail "Platform not supported $(uname -s)"
+		;;
 	esac
 	case "$(uname -m)" in
-		x86_64)
-			arch=x64
-			;;
-		i686)
-			arch=x86
-			;;
-		*)
-			arch="$(uname -m)"
-			;;
+	x86_64)
+		arch=x64
+		;;
+	i686)
+		arch=x86
+		;;
+	*)
+		arch="$(uname -m)"
+		;;
 	esac
 
 	url="$GH_REPO/releases/download/v$version/tree-sitter-$platform-$arch.gz"
