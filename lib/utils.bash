@@ -34,25 +34,25 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url platform arch
+	local version filename url os arch
 	version="$1"
 	filename="$2"
 	case "$(uname -s)" in
 	Linux)
-		platform=linux
+		os=linux
 		;;
 	Darwin)
 		local major minor
 		major=$(echo "$version" | cut -d. -f1)
 		minor=$(echo "$version" | cut -d. -f2)
 		if [ "$version" == "0.18.0" ] || [ "$major" == "0" ] && [ "$minor" -lt "18" ]; then
-			platform=osx
+			os=osx
 		else
-			platform=macos
+			os=macos
 		fi
 		;;
 	*)
-		fail "Platform not supported $(uname -s)"
+		fail "OS not supported $(uname -s)"
 		;;
 	esac
 	case "$(uname -m)" in
@@ -67,7 +67,7 @@ download_release() {
 		;;
 	esac
 
-	url="$GH_REPO/releases/download/v$version/tree-sitter-$platform-$arch.gz"
+	url="$GH_REPO/releases/download/v$version/tree-sitter-$os-$arch.gz"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	echo curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
