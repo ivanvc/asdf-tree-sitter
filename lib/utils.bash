@@ -70,7 +70,6 @@ download_release() {
 	url="$GH_REPO/releases/download/v$version/tree-sitter-$os-$arch.gz"
 
 	echo "* Downloading $TOOL_NAME release $version..."
-	echo curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
