@@ -62,6 +62,9 @@ download_release() {
 	i686)
 		arch=x86
 		;;
+	aarch64)
+		arch=arm64
+		;;
 	*)
 		arch="$(uname -m)"
 		;;
